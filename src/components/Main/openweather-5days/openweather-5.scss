@@ -1,0 +1,74 @@
+.five-days-card {
+  display: block;
+  padding: 0 1rem;
+  border-radius: 12px;
+
+  .card-filter {
+    background-color: rgb(255, 254, 246);
+    border-radius: 12px;
+    display: block;
+    h2 {
+      margin: 0;
+      padding: 1rem;
+    }
+    .day-card {
+      display: flex;
+      flex-wrap: wrap;
+      p,
+      h4 {
+        margin: 0;
+        padding: 0;
+      }
+
+      .date {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        width: 125px;
+        h4,
+        p {
+          padding-left: 1rem;
+        }
+        .day {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          h4,
+          p {
+            padding: 0;
+          }
+          img {
+            width: 28px;
+          }
+          .hours {
+            padding-top: 0.5rem;
+
+            display: flex;
+            align-items: center;
+            .hours-icon {
+              display: flex;
+              flex-direction: column;
+            }
+            .hours-weather {
+              margin-left: 1rem;
+              font-size: 12px;
+              .temp {
+                font-size: 1.2rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .five-days-card {
+    min-width: 90vw;
+    max-width: 95vw;
+    .day-card {
+      justify-content: space-around;
+    }
+  }
+}

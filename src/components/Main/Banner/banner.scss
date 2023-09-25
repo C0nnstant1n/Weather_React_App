@@ -1,0 +1,40 @@
+.banner {
+  margin: 1rem;
+  background-color: rgb(19 71 108 / 44%);
+  border-radius: 12px;
+  min-width: 46%;
+  max-width: 50%;
+  color: rgb(33, 34, 1);
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .banner-filter {
+    .banner-wraper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 1rem;
+    }
+    .banner-content {
+      margin: 0 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .banner {
+    min-width: 90vw;
+    max-width: 95vw;
+    font-size: 1rem;
+    .banner-filter {
+      .banner-wrapper {
+        margin: 0 1rem;
+      }
+    }
+  }
+}
