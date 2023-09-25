@@ -1,10 +1,10 @@
-# 1stReactApp
+# HomeWork: Simple React App with Type Script
 
 Простой сайт прогноз погоды
 
 Использует API Yandex Map (https://yandex.ru/dev/maps/geocoder/) и Openweather(https://openweathermap.org/)
 
-Установка: npm install
+Установка: npm install,
 
-Запуск development сервера: npm start
+Запуск development сервера: npm start,
 Запуск production: npm run build
