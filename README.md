@@ -1,4 +1,4 @@
-# 1stReactApp
+# HomeWork: Simple React App with Type Script
 
 Простой сайт прогноз погоды
 
