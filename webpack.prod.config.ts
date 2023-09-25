@@ -1,18 +1,19 @@
 import path from "path";
-import { Configuration } from "webpack";
+import { Configuration as WebpackConfiguration } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-// import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+interface Configuration extends WebpackConfiguration
+
 const config: Configuration = {
   mode: "production",
-  entry: "./src/index.tsx",
   output: {
-    path: path.resolve(__dirname, "build"),
-    filename: "[name].[contenthash].js",
-    publicPath: "",
+    path: path.resolve(__dirname, "dist"),
   },
+  entry: "./src/index.tsx",
   module: {
     rules: [
       {
@@ -21,8 +22,32 @@ const config: Configuration = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
+            presets: [
+              "@babel/preset-env",
+              "@babel/preset-react",
+              "@babel/preset-typescript",
+            ],
           },
+        },
+      },
+      {
+        test: /\.(scss|css)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.svg$/,
+        type: "asset/resource",
+        generator: {
+          filename: path.join("icons", "[name].[contenthash][ext]"),
         },
       },
     ],
@@ -34,13 +59,12 @@ const config: Configuration = {
     new HtmlWebpackPlugin({
       template: "src/index.html",
     }),
-    // new ForkTsCheckerWebpackPlugin({
-    //   async: false,
-    // }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
     new ESLintPlugin({
       extensions: ["js", "jsx", "ts", "tsx"],
     }),
-    new CleanWebpackPlugin(),
   ],
 };
 
