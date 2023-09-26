@@ -1,17 +1,17 @@
 import path from "path";
-import { Configuration as WebpackConfiguration } from "webpack";
+import { Configuration } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+// import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
-
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
-interface Configuration extends WebpackConfiguration
 
 const config: Configuration = {
   mode: "production",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "build"),
+    filename: "[name].[contenthash].js",
+    publicPath: "",
+    clean: true,
   },
   entry: "./src/index.tsx",
   module: {
@@ -42,12 +42,15 @@ const config: Configuration = {
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
         type: "asset/resource",
+        generator: {
+          filename: path.join("assets", "img", "[name].[contenthash][ext]"),
+        },
       },
       {
         test: /\.svg$/,
         type: "asset/resource",
         generator: {
-          filename: path.join("icons", "[name].[contenthash][ext]"),
+          filename: path.join("assets", "icons", "[name].[contenthash][ext]"),
         },
       },
     ],

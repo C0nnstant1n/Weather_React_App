@@ -3,7 +3,7 @@ import city_list from "./city_list";
 import "./SelectCity.scss";
 
 export default function SelectCity({ setCity }) {
-  const options: Array = city_list.map((value) => {
+  const options = city_list.map((value) => {
     return (
       <option value={value} key={value}>
         {value}

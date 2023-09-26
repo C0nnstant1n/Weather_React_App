@@ -13,7 +13,8 @@ interface Configuration extends WebpackConfiguration {
 const config: Configuration = {
   mode: "development",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dev"),
+    clean: true,
   },
   entry: "./src/index.tsx",
   module: {
@@ -44,12 +45,15 @@ const config: Configuration = {
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
         type: "asset/resource",
+        generator: {
+          filename: path.join("assets", "img", "[name].[contenthash][ext]"),
+        },
       },
       {
         test: /\.svg$/,
         type: "asset/resource",
         generator: {
-          filename: path.join("icons", "[name].[contenthash][ext]"),
+          filename: path.join("assets", "icons", "[name].[contenthash][ext]"),
         },
       },
     ],

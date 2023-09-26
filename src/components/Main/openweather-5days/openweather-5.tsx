@@ -69,12 +69,25 @@ interface CityInfo {
 }
 
 export default function FiveDaysApi(props: ChildrenData) {
+  const city = {
+    id: 0,
+    name: "",
+    coord: {
+      lat: 0,
+      lon: 0,
+    },
+    country: "",
+    population: 0,
+    timezone: 0,
+    sunrise: 0,
+    sunset: 0,
+  };
   const weather_type: WeatherData = {
     cod: "",
     message: 0,
     cnt: 0,
     list: [],
-    city: [],
+    city: city,
   };
   const [weather, setWeather] = React.useState(weather_type);
 
@@ -107,20 +120,18 @@ export default function FiveDaysApi(props: ChildrenData) {
               <h2>Прогноз на 5 дней</h2>
               <div className='day-card'>
                 {days.map((day) => (
-                  <>
-                    <div
-                      className='date'
-                      key={new Date(day[0].dt * 1000).getDate()}
-                    >
-                      <h4>
-                        {new Date(day[0].dt * 1000).getDate()}
-                        &nbsp;
-                        {getMonthName(new Date(day[0].dt * 1000))}
-                      </h4>
-                      <p>{getWeekDay(new Date(day[0].dt * 1000))}</p>
-                      {WeatherByDay(day)}
-                    </div>
-                  </>
+                  <div
+                    className='date'
+                    key={new Date(day[0].dt * 1000).getDate()}
+                  >
+                    <h4>
+                      {new Date(day[0].dt * 1000).getDate()}
+                      &nbsp;
+                      {getMonthName(new Date(day[0].dt * 1000))}
+                    </h4>
+                    <p>{getWeekDay(new Date(day[0].dt * 1000))}</p>
+                    {WeatherByDay(day)}
+                  </div>
                 ))}
               </div>
             </div>
@@ -134,7 +145,7 @@ export default function FiveDaysApi(props: ChildrenData) {
 }
 
 function GroupByDay(list: WeatherData["list"]) {
-  const grouped = [];
+  const grouped: { [key: string]: WeatherInfo[] } = {};
 
   for (const item of list) {
     const day = new Date(item.dt * 1000);
@@ -148,7 +159,7 @@ function GroupByDay(list: WeatherData["list"]) {
   return Object.values(grouped);
 }
 
-function WeatherByDay(day_data: array) {
+function WeatherByDay(day_data: WeatherInfo[]) {
   return (
     <ul className='day'>
       <hr />
@@ -176,12 +187,12 @@ function WeatherByDay(day_data: array) {
   );
 }
 
-function getWeekDay(date) {
+function getWeekDay(date: Date) {
   const days = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
   return days[date.getDay()];
 }
 
-function getMonthName(date) {
+function getMonthName(date: Date) {
   const days = [
     "Янв",
     "Фев",
